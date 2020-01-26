@@ -1,0 +1,22 @@
+<div class="show-bg">
+    <h1>商品詳細画面</h1>
+    <div class="show-product">
+        <h1><%= @product.name %></h1>
+        <p><%= image_tag("#{@product.image}") %></p>
+        <p class="show-product-p">￥ <%= @product.price %> 円</p>
+        <p class="show-product-p">商品説明： <%= @product.description %></p>
+        <p class="show-product-p">出品者名：<%= @product.saler.email %></p>
+
+      <% if @product.buyer_id == nil &&  @product.saler_id != current_user.id %>
+        <div class="pt-2">
+          <%= link_to '購入画面へ進む', transaction_path(@product), class: 'btn btn-danger btn-lg' %>
+        </div>
+      <% end %>
+
+      <% if @product.saler_id == current_user.id %>
+        <div class="show-destroy-link">
+          <%= link_to '削除', product_path, method: :delete %>
+        </div>
+      <% end %>
+    </div>
+</div>

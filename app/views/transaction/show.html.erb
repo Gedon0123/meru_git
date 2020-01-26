@@ -1,0 +1,6 @@
+<h1>購入内容の確認</h1>
+<%= image_tag("#{@product.image}") %>
+<p><%= @product.name %></p>
+<p>支払い金額： ¥<%= @product.price %></p>
+
+<%= link_to '購入する', transaction_agreement_path(@product) %>

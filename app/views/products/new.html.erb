@@ -1,0 +1,34 @@
+<div class="new-bg">
+<div class="d-flex align-items-center">
+  <p class="h3">商品の情報を入力</p>
+</div>
+
+  <div class="new-form pb-3">
+  <%= form_with model: @product, local: true do |f| %>
+    <div class="form-group pr-4 pl-4">
+      <%= f.label :name, '名前' %>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <div class="form-group pr-4 pl-4">
+      <%= f.label :price, '価格' %>
+      <%= f.text_field :price, class: 'form-control' %>
+    </div>
+    <div class="form-group pr-4 pl-4">
+      <%= f.label :description, '商品説明' %>
+      <%= f.text_area :description, class: 'form-control', rows: 10 %>
+    </div>
+    <div class="form-group pr-4 pl-4">
+      <%# デフォルト画像のみ送信 %>
+      <%= f.label :image, '商品画像' %>
+      <%= f.text_field :image, value: 'default_img.png',  class: 'form-control' %>
+    </div>
+    <%# <%= f.hidden_field :buyer_id, :value => 1 %>
+    <%= f.hidden_field :saler_id, :value => current_user.id %>
+    <%= f.hidden_field :state, :value => 1 %>
+    <%= f.hidden_field :deposit, :value => 0 %>
+    <%= f.hidden_field :shipping, :value => 0 %>
+
+    <%= f.submit '出品する', class: 'btn btn-danger btn-lg' %>
+    </div>
+  </div>
+<% end %>

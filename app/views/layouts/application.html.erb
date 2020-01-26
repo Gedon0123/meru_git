@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>App</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      <div class="top-logo">
+        <%= image_tag 'logo-top.svg' %>
+      </div>
+
+      <% if user_signed_in? %>
+        <div class="index-mypage">
+          <!-- <img src="/assets/mypage-logo.jpg" class="mypage-logo">(下記に変更) -->
+          <p><%= link_to image_tag("mypage-logo.jpg", class: 'mypage-logo'),my_page_path %></p>
+          <p><%= link_to 'マイページ', my_page_path, class: 'index-mypage-link' %></p>
+        </div>
+      <% end %>
+    </header>
+    <%= yield %>
+  </body>
+</html>

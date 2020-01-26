@@ -1,0 +1,20 @@
+<div class="index-kantan-img">
+  <img src="/assets/kantan.png" class="kantan-img pt-2">
+</div>
+
+<div class="index-products-bg">
+  <h1>新着商品</h1>
+  <div class="products-index">
+    <% @products.each do |product| %>
+      <div class="index-product-show">
+        <p><%= link_to image_tag("#{product.image}", class: 'index-product'), product_path(product) %></p>
+        <p class="product-price">￥ <%= product.price %></p>
+        <p class="product-name"><%= product.name %></p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="btn-bg">
+  <%= link_to '出品する', new_product_path, class: 'btn-prpduct-new' %>
+</div>

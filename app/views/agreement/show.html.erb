@@ -1,0 +1,74 @@
+<h1>取引画面</h1>
+<p><%= @product.name %></p>
+
+<%# 購入者view %>
+<% if @product.saler_id != current_user.id %>
+    <% if @product.buyer_id == nil%>
+        <%# PayjpAPI実装 %>
+        <%= form_with url: pay_transaction_agreement_index_path, method: :post do %>
+          <script type="text/javascript" src="https://checkout.pay.jp" class="payjp-button"
+          data-text="入金する" data-key="pk_test_6d7e3b069e57e2eef1a6e758"></script>
+        <% end %>
+    <% elsif @product.deposit != 1 %>
+        <%= link_to '受取評価をする', deposit_transaction_agreement_index_path(@product) %>
+    <% end %>
+
+    <% if @product.deposit == 1 %>
+        <p>取引完了</p>
+        <%= link_to 'HOMEへ', products_path %>
+    <% end %>
+<% end %>
+
+
+<%# 出品者view %>
+<% if @product.saler_id == current_user.id %>
+    <% if @product.buyer_id == nil %>
+        <p>入金待ち</p>
+    <% elsif @product.buyer_id != nil && @product.shipping == 0 %>
+        <%= link_to '発送通知を送る', shipping_transaction_agreement_index_path(@product) %>
+    <% end %>
+
+    <% if @product.shipping == 1 && @product.deposit != 1 %>
+        <p>受取評価待ち</p>
+        <%= link_to 'HOMEへ', products_path %>
+    <% end %>
+
+    <% if @product.shipping == 1 && @product.deposit == 1%>
+        <p>取引完了</p>
+        <%= link_to 'HOMEへ', products_path %>
+    <% end %>
+<% end %>
+
+
+    <!-- 取引メッセージ -->
+    <div class="d-flex align-items-center">
+      <h2>コメント</h2>
+    </div>
+      <% @product.comments.each do |comment| %>
+        <div class="ms-wrap">
+          <% if comment.user_id == current_user.id%>
+            <div class="mycomment">
+              <p>ユーザー名 ：<%= comment.user.email %></p>
+              <p>メッセージ ：<%= comment.comment %></p>
+            </div>
+          <% else %>
+            <div class="chatting">
+              <p>ユーザー名 ：<%= comment.user.email %></p>
+              <p>メッセージ ：<%= comment.comment %></p>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+
+    <%= form_with model: @comment, local: true do |f| %>
+        <%= f.hidden_field :product_id, :value => @product.id %>
+        <%= f.hidden_field :user_id, :value => current_user.id %>
+
+      <div class="form-group">
+        <%= f.label :comment, 'コメント' %>
+        <%= f.text_field :comment, class: 'form-control' %>
+      </div>
+
+      <%= f.submit '送信', class: 'btn btn-primary' %>
+   <% end %>

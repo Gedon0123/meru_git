@@ -1,0 +1,28 @@
+//mypage.scssを新しく作成後、アプリケーション.scssでインポート
+
+ul{
+  list-style: none;
+}
+
+.mypage-product-list{
+  height: 85px;
+  margin: 3px;
+  width: 50%;
+  background: #fff;
+  border: 1px solid #ccc;   //枠線をつける
+}
+
+.mypage-product-list:hover{
+  background: #EEEEEE;
+}
+
+.mypage-product-list p{
+  display: inline-block;
+}
+
+//link_toの文字色変更はpではなく、link_toのクラスで記述
+
+.mypage-img{
+  width: 60%;       //画像を小さくする
+  height: auto;     //横幅に合わせて高さを変更、画像が小さくなる
+}
