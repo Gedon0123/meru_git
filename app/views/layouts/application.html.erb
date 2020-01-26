@@ -11,7 +11,7 @@
   <body>
     <header>
       <div class="top-logo">
-        <%= image_tag 'logo-top.svg' %>
+        <%= link_to image_tag('logo-top.svg'), products_path %>
       </div>
 
       <% if user_signed_in? %>
